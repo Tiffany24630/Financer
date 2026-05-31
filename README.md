@@ -186,3 +186,7 @@ pytest tests/test_excel.py
 ## Autores
 
 Proyecto desarrollado como herramienta de apoyo para análisis financiero asistido por Inteligencia Artificial y procesamiento de voz.
+- Jefferson Calderón
+- Tiffany Salazar
+- Giancarlo
+- Luis
