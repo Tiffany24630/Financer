@@ -1,0 +1,10 @@
+streamlit
+openai
+pandas
+numpy
+python-dotenv
+streamlit-mic-recorder
+openpyxl
+xlrd
+pydub
+pytest
