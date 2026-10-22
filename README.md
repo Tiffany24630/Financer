@@ -1,45 +1,52 @@
 # FinancerAI
 
-FinancerAI es una aplicación desarrollada con Streamlit que permite analizar información financiera contenida en archivos Excel mediante Inteligencia Artificial. Además, incorpora un asistente de voz capaz de responder preguntas relacionadas con los datos cargados utilizando modelos de OpenAI.
+FinancerAI is an AI-assisted financial data analysis application built with Python and Streamlit. It allows users to upload Excel files, inspect their data, generate financial insights with OpenAI, and interact with the loaded information through voice-based questions.
 
-## Características
+The project combines **data processing, AI integration, financial analysis, speech processing, and automated testing** in a single application.
 
-### Gestión de archivos Excel
+## Features
 
-* Carga de archivos Excel.
-* Validación básica de archivos.
-* Lectura automática de datos mediante Pandas.
-* Vista previa de registros.
-* Estadísticas generales del conjunto de datos:
+### Financial data processing
 
-  * Número de registros.
-  * Número de columnas.
-  * Cantidad de valores nulos.
+- Upload Excel files.
+- Validate uploaded files before processing.
+- Read and process financial data using Pandas.
+- Preview uploaded records.
+- Display basic dataset statistics:
+  - Number of records
+  - Number of columns
+  - Missing values
 
-### Análisis financiero con IA
+### AI-assisted financial analysis
 
-* Generación automática de:
+The application can generate:
 
-  * Resumen financiero.
-  * Estimación de ISR.
-  * Estimación de IVA.
-  * Identificación de riesgos fiscales.
-  * Recomendaciones financieras.
-* Contextualización basada en legislación y prácticas contables de Guatemala.
+- Financial summaries
+- ISR estimates
+- IVA estimates
+- Fiscal risk identification
+- Financial recommendations
 
-### Asistente de voz
+The analysis is contextualized using legislation and accounting practices from Guatemala.
 
-* Grabación de preguntas mediante micrófono.
-* Transcripción automática utilizando Whisper.
-* Consulta de información financiera mediante lenguaje natural.
-* Respuestas generadas por IA.
-* Conversión de respuestas a voz mediante Text-to-Speech.
-* Historial de conversaciones.
+### Voice assistant
 
-## Arquitectura del Proyecto
+FinancerAI also supports voice-based interaction with the financial data:
+
+1. Record a question using a microphone.
+2. Transcribe the question using Whisper.
+3. Process the question using the loaded financial information.
+4. Generate an AI response using OpenAI.
+5. Convert the response to audio using Text-to-Speech.
+
+Conversation history is available during the current application session.
+
+---
+
+## Architecture
 
 ```text
-ProyF/
+FinancerAI/
 │
 ├── app.py
 │
@@ -68,125 +75,196 @@ ProyF/
 └── .env
 ```
 
-## Tecnologías Utilizadas
+The project separates the main responsibilities into data processing, interface components, AI services, speech processing, and tests.
 
-* Python 3
-* Streamlit
-* OpenAI API
-* Pandas
-* NumPy
-* OpenPyXL
-* Whisper
-* Text-to-Speech (OpenAI)
-* Pytest
-* Python Dotenv
+---
 
-## Requisitos
+## Technology Stack
 
-Instalar las dependencias:
+### Application
+
+- Python 3
+- Streamlit
+
+### Data processing
+
+- Pandas
+- NumPy
+- OpenPyXL
+
+### AI and speech
+
+- OpenAI API
+- Whisper
+- OpenAI Text-to-Speech
+
+### Testing and configuration
+
+- Pytest
+- Python Dotenv
+
+---
+
+## How it works
+
+### 1. Upload financial data
+
+The user uploads an Excel file containing financial information.
+
+### 2. Validate the file
+
+The application checks that:
+
+- The file exists.
+- The file size is valid.
+- The file contains data.
+- The file contains enough columns to be processed.
+
+### 3. Inspect the dataset
+
+The dashboard displays the uploaded records and basic information about the dataset, including record count, column count, and missing values.
+
+### 4. Generate an AI analysis
+
+The user can request an AI-assisted analysis of the loaded records.
+
+The application sends the relevant financial information to OpenAI and generates a structured financial analysis.
+
+### 5. Ask questions using voice
+
+The user can record a question instead of typing it.
+
+```text
+Voice input
+    ↓
+Whisper transcription
+    ↓
+Financial data + user question
+    ↓
+OpenAI analysis
+    ↓
+Generated response
+    ↓
+Text-to-Speech
+    ↓
+Audio response
+```
+
+---
+
+## Installation
+
+Clone the repository and install the required dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Configuración
+---
 
-Crear un archivo `.env` en la raíz del proyecto:
+## Configuration
+
+Create a `.env` file in the project root:
 
 ```env
-OPENAI_API_KEY=tu_api_key
+OPENAI_API_KEY=your_api_key
 ```
 
-## Ejecución
+The API key is loaded through environment variables rather than being included directly in the source code.
 
-Iniciar la aplicación con:
+> Do not commit your `.env` file or expose your API key.
+
+---
+
+## Running the application
+
+Start the Streamlit application with:
 
 ```bash
 streamlit run app.py
 ```
 
-La aplicación estará disponible en:
+The application will be available at:
 
 ```text
 http://localhost:8501
 ```
 
-## Flujo de Uso
+---
 
-### 1. Cargar archivo Excel
+## Testing
 
-El usuario selecciona un archivo Excel que contiene información financiera.
-
-### 2. Validación
-
-El sistema verifica:
-
-* Que el archivo exista.
-* Que el tamaño sea válido.
-* Que contenga información.
-* Que posea suficientes columnas para ser procesado.
-
-### 3. Dashboard
-
-Se muestra:
-
-* Tabla de datos.
-* Cantidad de registros.
-* Cantidad de columnas.
-* Valores faltantes.
-
-### 4. Análisis Inteligente
-
-Al presionar **Analizar registros con IA**, el sistema envía la información a OpenAI para generar un análisis financiero completo.
-
-### 5. Chat de Voz
-
-El usuario puede:
-
-* Grabar una pregunta.
-* Obtener una transcripción automática.
-* Recibir una respuesta generada por IA.
-* Escuchar la respuesta mediante audio sintetizado.
-
-### 6. Historial
-
-Las conversaciones quedan registradas durante la sesión actual para consulta posterior.
-
-## Pruebas
-
-Ejecutar todas las pruebas:
+Run the complete test suite:
 
 ```bash
 pytest
 ```
 
-Ejecutar una prueba específica:
+Run a specific test file:
 
 ```bash
 pytest tests/test_excel.py
 ```
 
-## Seguridad
+The repository includes tests for:
 
-* La clave de OpenAI se almacena mediante variables de entorno.
-* No se incluyen credenciales dentro del código fuente.
-* Se realizan validaciones básicas sobre archivos y entradas de usuario.
+- Excel processing
+- AI functionality
+- Audio functionality
 
-## Posibles Mejoras Futuras
+---
 
-* Dashboard financiero avanzado con gráficos.
-* Exportación de reportes PDF.
-* Cálculo automático de impuestos basado en normativa SAT.
-* Base de datos para almacenamiento histórico.
-* Gestión de usuarios y autenticación.
-* Integración con sistemas contables externos.
-* Análisis predictivo financiero.
-* Soporte para múltiples formatos de archivo.
+## Project Structure
 
-## Autores
+The application follows a modular structure:
 
-Proyecto desarrollado como herramienta de apoyo para análisis financiero asistido por Inteligencia Artificial y procesamiento de voz.
+- `backend/` — financial data processing, tax calculations, and validation.
+- `frontend/` — Streamlit views and dashboard components.
+- `ia/` — OpenAI integration, prompts, and speech services.
+- `tests/` — automated tests for the main application components.
+
+---
+
+## Security
+
+The project uses environment variables for the OpenAI API key instead of storing credentials directly in the source code.
+
+Input files are also subject to basic validation before processing.
+
+For production use, additional controls would be appropriate depending on the deployment environment and the sensitivity of the financial information being processed.
+
+---
+
+## Future Improvements
+
+Possible extensions include:
+
+- Advanced financial dashboards and visualizations.
+- PDF report generation.
+- Automated tax calculations based on SAT regulations.
+- Persistent database storage.
+- User authentication and account management.
+- Integration with external accounting systems.
+- Predictive financial analysis.
+- Support for additional file formats.
+
+---
+
+## Contributors
+
+This project was developed as a collaborative project by:
+
 - Jefferson Calderón
 - Tiffany Salazar
 - Giancarlo
 - Luis
+
+---
+
+## Project Focus
+
+FinancerAI explores how AI can be combined with structured financial data and natural-language interaction to make financial information easier to analyze.
+
+The project brings together several areas of software development:
+
+**Data processing → AI integration → Voice interaction → Financial analysis → Automated testing**
