@@ -119,10 +119,22 @@ Audio response
 
 ## Installation
 
-Install the dependencies declared by the project:
+Create the project environment and install the dependencies declared by the project:
 
 ```bash
-pip install -r requirements.txt
+python -m venv .venv
+```
+
+On Windows, install the dependencies with the Python interpreter from the virtual environment:
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+```
+
+On macOS or Linux, use:
+
+```bash
+.venv/bin/python -m pip install -r requirements.txt
 ```
 
 ## Configuration
@@ -137,10 +149,10 @@ The application loads the key from the environment through Python Dotenv. The lo
 
 ## Running the application
 
-Start the Streamlit application with:
+Start the Streamlit application with the Python executable from `.venv`:
 
-```bash
-streamlit run app.py
+```powershell
+.\.venv\Scripts\python.exe -m streamlit run app.py
 ```
 
 By default, Streamlit serves the application at:
@@ -154,27 +166,27 @@ http://localhost:8501
 The repository includes test files for:
 
 - Excel-related behavior: `tests/test_excel.py`
-- AI-related placeholder behavior: `tests/test_ai.py`
+- AI request construction and response handling with mocks: `tests/test_ai.py`
 - Audio utilities and metadata handling: `tests/test_audio.py`
 
 Run the complete suite with:
 
-```bash
-pytest
+```powershell
+.\.venv\Scripts\python.exe -m pytest -q
 ```
 
 Run an individual test file with:
 
-```bash
-pytest tests/test_excel.py
+```powershell
+.\.venv\Scripts\python.exe -m pytest -q tests/test_excel.py
 ```
 
-The complete suite has not been validated successfully in the audited environment because test collection required dependencies were unavailable there. The AI test currently checks a local placeholder string and does not make or validate a real OpenAI API call.
+The test suite can run without credentials or network access because the OpenAI interactions are mocked. These tests verify request construction and local response handling; they do not validate a live OpenAI integration or credentials.
 
 ## Security considerations
 
 - The OpenAI API key is read from `OPENAI_API_KEY` rather than hard-coded in the source code.
-- `.env.example` contains the configuration template; `.env` is intended to remain local.
+- `.env.example` contains the configuration template; `.env` and `.venv` are intended to remain local and should not be published to GitHub.
 - Uploaded files receive the basic size and structure validation described above.
 - Production deployments should add controls appropriate for the sensitivity of financial information and the use of external AI services.
 
